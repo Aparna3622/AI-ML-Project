@@ -1,6 +1,7 @@
 from datetime import date
 import streamlit as st
 import pandas as pd
+import re
 
 from model import load_model, train_and_save_model
 import database
@@ -99,12 +100,13 @@ def main():
     # Main area: dashboard and table
     st.header("Dashboard")
     rows = database.get_all_patients()
-    df = pd.DataFrame(rows, columns=rows[0].keys()) if rows else pd.DataFrame(columns=["id", "full_name", "dob", "email", "glucose", "haemoglobin", "cholesterol", "remarks"]) if rows is not None else pd.DataFrame()
+    rows_list = [dict(r) for r in rows] if rows else []
+    df = pd.DataFrame(rows_list)
 
     total = len(df)
-    healthy = (df["remarks"] == "Healthy").sum() if "remarks" in df else 0
-    predi = (df["remarks"] == "Prediabetes Risk").sum() if "remarks" in df else 0
-    high = (df["remarks"] == "High Cholesterol Risk").sum() if "remarks" in df else 0
+    healthy = int((df["remarks"] == "Healthy").sum()) if "remarks" in df else 0
+    predi = int((df["remarks"] == "Prediabetes Risk").sum()) if "remarks" in df else 0
+    high = int((df["remarks"] == "High Cholesterol Risk").sum()) if "remarks" in df else 0
 
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Total Patients", total)
