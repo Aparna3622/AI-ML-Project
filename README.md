@@ -24,3 +24,19 @@ streamlit run app.py
 Notes
 - The sample ML dataset is intentionally small and illustrative. Replace with a larger dataset for production use.
 - The model is created automatically if `models/health_model.pkl` is missing.
+
+Additional artifacts
+- Trained model and encoder: `models/health_model.pkl`
+- Training metrics: `models/metrics.json`
+- Confusion matrix CSV: `models/confusion_matrix.csv`
+- Explainability report: `reports/shap_report.md` and `reports/feature_importances.csv` (if SHAP not installed)
+
+Reproduce training locally
+```
+python train.py
+python explainability.py
+```
+
+What I suggest next for the interview
+- Add a short `train_report.md` summarizing dataset, metrics, and explainability results (I can generate this).
+- Pin dependency versions in `requirements.txt` and add `Dockerfile` for reproducibility.
