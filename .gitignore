@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual environment
+venv/
+env/
+
+# SQLite database
+patients.db
+
+# Model files (optional)
+models/health_model.pkl
+
+# IDE files
+.vscode/
